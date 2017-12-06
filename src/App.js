@@ -1,36 +1,37 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import MyComponent from './components/MyComponent';
+import List from './components/List';
 
-class App extends Component {
+export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOn: true
+      term: '',
+      items: []
     };
   }
-  toggle = () => {
-    this.setState({isOn: !this.state.isOn})
+
+  onChange = (event) => {
+    this.setState({ term: event.target.value });
+  }
+
+  onSubmit = (event) => {
+    event.preventDefault();
+    this.setState({
+      term: '',
+      items: [...this.state.items, this.state.term]
+    });
   }
 
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-          <MyComponent name="Kenia 😃" />
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <button onClick={this.toggle}>
-          {this.state.isOn ? 'On' : 'Off'}
-        </button>
+      <div>
+        <form className="App" onSubmit={this.onSubmit}>
+          <input value={this.state.term} onChange={this.onChange} />
+          <button>Submit</button>
+        </form>
+        <List items={this.state.items} />
       </div>
     );
   }
 }
-
-export default App;
