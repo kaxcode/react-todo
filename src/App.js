@@ -7,7 +7,9 @@ export default class App extends Component {
     super(props);
     this.state = {
       term: '',
-      items: []
+      items: [],
+      clicks: 0,
+      show: true
     };
   }
 
@@ -23,6 +25,16 @@ export default class App extends Component {
     });
   }
 
+  IncrementItem = () => {
+    this.setState({ clicks: this.state.clicks + 1 });
+  }
+  DecreaseItem = () => {
+    this.setState({ clicks: this.state.clicks - 1 });
+  }
+  ToggleClick = () => {
+    this.setState({ show: !this.state.show });
+  }
+
   render() {
     return (
       <div>
@@ -31,6 +43,12 @@ export default class App extends Component {
           <button>Submit</button>
         </form>
         <List items={this.state.items} />
+        <button onClick={this.IncrementItem}>Click to increment by 1</button>
+        <button onClick={this.DecreaseItem}>Click to decrease by 1</button>
+        <button onClick={this.ToggleClick}>
+          { this.state.show ? 'Hide number' : 'Show number' }
+        </button>
+        { this.state.show ? <h2>{ this.state.clicks }</h2> : '' }
       </div>
     );
   }
