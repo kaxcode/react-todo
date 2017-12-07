@@ -7,4 +7,11 @@ class App extends Component {
     };
   }
 }
+
+onChange = (event) => {
+  this.setState({term: event.target.value});
+}
+
+<input value={this.state.term} onChange={this.onChange} />
+
 export default App;
