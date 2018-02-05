@@ -2,6 +2,9 @@
 
 exports[`renders a snapshot 1`] = `
 <div>
+  <h2>
+    Welcome to my react-todo app!
+  </h2>
   <form
     className="App"
     onSubmit={[Function]}

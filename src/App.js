@@ -26,6 +26,7 @@ export default class App extends Component {
   render() {
     return (
       <div>
+        <h2>Welcome to my react-todo app!</h2>
         <form className="App" onSubmit={this.onSubmit}>
           <input value={this.state.term} onChange={this.onChange} />
           <button>Submit</button>
