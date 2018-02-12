@@ -3,6 +3,6 @@ import { Route, Switch } from 'react-router-dom';
 import Home from './containers/Home';
 
 export default () =>
-  (<Switch>
+  <Switch>
     <Route path="/" exact component={Home} />
-  </Switch>);
+  </Switch>;
