@@ -1,38 +1,23 @@
 import React, { Component } from 'react';
-import './App.css';
-import List from './components/List';
+import { Link } from 'react-router-dom';
+import { Navbar } from 'react-bootstrap';
+import "./App.css";
 
-export default class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      term: '',
-      items: []
-    };
-  }
-
-  onChange = (event) => {
-    this.setState({ term: event.target.value });
-  }
-
-  onSubmit = (event) => {
-    event.preventDefault();
-    this.setState({
-      term: '',
-      items: [...this.state.items, this.state.term]
-    });
-  }
-
+class App extends Component {
   render() {
     return (
-      <div>
-        <h2>Welcome to my react-todo app!</h2>
-        <form className="App" onSubmit={this.onSubmit}>
-          <input value={this.state.term} onChange={this.onChange} />
-          <button>Submit</button>
-        </form>
-        <List items={this.state.items} />
+      <div className="App container">
+        <Navbar fluid collapseOnSelect>
+          <Navbar.Header>
+            <Navbar.Brand>
+              <Link to="/">Scratch</Link>
+            </Navbar.Brand>
+            <Navbar.Toggle />
+          </Navbar.Header>
+        </Navbar>
       </div>
     );
   }
 }
+
+export default App;
