@@ -10,7 +10,7 @@ export default props => (
       <NavItem
         onClick={e => history.push(e.currentTarget.getAttribute('href'))}
         {...props}
-        active={match ? true : false}
+        active={match || false}
       >
         {props.children}
       </NavItem>
