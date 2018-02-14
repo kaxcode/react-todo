@@ -17,7 +17,7 @@ class App extends Component {
   userHasAuthenticated = authenticated => {
     this.setState({ isAuthenticated: authenticated });
   }
-  
+
   render() {
     return (
       <div className="App container">
@@ -35,10 +35,15 @@ class App extends Component {
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-        <Routes />
+        <Routes childProps={childProps} />
       </div>
     );
   }
 }
+
+const childProps = {
+  isAuthenticated: this.state.isAuthenticated,
+  userHasAuthenticated: this.userHasAuthenticated
+};
 
 export default App;
