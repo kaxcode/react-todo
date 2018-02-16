@@ -1,24 +1,33 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Nav, Navbar } from 'react-bootstrap';
-import Routes from './Routes';
-import './App.css';
-import RouteNavItem from './components/RouteNavItem';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { Nav, NavItem, Navbar } from "react-bootstrap";
+import Routes from "./Routes";
+import RouteNavItem from "./components/RouteNavItem";
+import "./App.css";
 
 class App extends Component {
   constructor(props) {
     super(props);
-  
+
     this.state = {
       isAuthenticated: false
     };
   }
-  
+
   userHasAuthenticated = authenticated => {
     this.setState({ isAuthenticated: authenticated });
   }
 
+  handleLogout = event => {
+    this.userHasAuthenticated(false);
+  }
+
   render() {
+    const childProps = {
+      isAuthenticated: this.state.isAuthenticated,
+      userHasAuthenticated: this.userHasAuthenticated
+    };
+
     return (
       <div className="App container">
         <Navbar fluid collapseOnSelect>
@@ -30,8 +39,16 @@ class App extends Component {
           </Navbar.Header>
           <Navbar.Collapse>
             <Nav pullRight>
-              <RouteNavItem href="/signup">Signup</RouteNavItem>
-              <RouteNavItem href="/login">Login</RouteNavItem>
+              {this.state.isAuthenticated
+                ? <NavItem onClick={this.handleLogout}>Logout</NavItem>
+                : [
+                    <RouteNavItem key={1} href="/signup">
+                      Signup
+                    </RouteNavItem>,
+                    <RouteNavItem key={2} href="/login">
+                      Login
+                    </RouteNavItem>
+                  ]}
             </Nav>
           </Navbar.Collapse>
         </Navbar>
@@ -40,10 +57,5 @@ class App extends Component {
     );
   }
 }
-
-const childProps = {
-  isAuthenticated: this.state.isAuthenticated,
-  userHasAuthenticated: this.userHasAuthenticated
-};
 
 export default App;
