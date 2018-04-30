@@ -1,35 +1,40 @@
 import React, { Component } from "react";
 
-const AppContext = React.createContext();
+const Context = React.createContext();
+const { Provider, Consumer } = Context;
 
 class AppProvider extends Component {
   state = {
-    number: 10,
-    inc: () => {
-      this.setState({ number: this.state.number + 1 });
-    }
+    count: 10
   };
 
   render() {
     return (
-      <AppContext.Provider value={this.state}>
+      <Provider
+        value={{
+          state: this.state,
+          actions: {
+            increment: () => this.setState({ count: this.state.count + 1 })
+          }
+        }}
+      >
         {this.props.children}
-      </AppContext.Provider>
+      </Provider>
     );
   }
 }
 
 const Green = () => (
   <div className="green">
-    <AppContext.Consumer>{context => context.number}</AppContext.Consumer>
+    <Consumer>{({ state }) => <span>{state.count}</span>}</Consumer>
   </div>
 );
 
 const Blue = () => (
   <div className="blue">
-    <AppContext.Consumer>
-      {context => <button onClick={context.inc}>INC</button>}
-    </AppContext.Consumer>
+    <Consumer>
+      {({ actions }) => <button onClick={actions.increment}>+</button>}
+    </Consumer>
     <Green />
   </div>
 );
@@ -40,9 +45,7 @@ class Red extends Component {
       <AppProvider>
         <div className="App__container">
           <div className="red">
-            <AppContext.Consumer>
-              {context => context.number}
-            </AppContext.Consumer>
+            <Consumer>{({ state }) => <span>{state.count}</span>}</Consumer>
             <Blue />
           </div>
         </div>
