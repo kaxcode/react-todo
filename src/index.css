@@ -3,7 +3,7 @@ textarea.form-control,
 input.form-control {
   font-size: 16px;
 }
-input[type=file] {
+input[type="file"] {
   width: 100%;
 }
 
@@ -13,4 +13,17 @@ input[type=file] {
 
 .App .navbar-brand {
   font-weight: bold;
+}
+
+.App__container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 230px 300px 1fr;
+}
+
+.red {
+  background-color: red;
+  width: 800px;
+  height: 400px;
+  grid-area: 2/2/3/3;
 }
