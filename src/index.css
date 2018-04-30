@@ -26,4 +26,14 @@ input[type="file"] {
   width: 800px;
   height: 400px;
   grid-area: 2/2/3/3;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+
+.blue {
+  background-color: blue;
+  width: 700px;
+  height: 300px;
+  grid-area: 2/2/3/3;
 }
