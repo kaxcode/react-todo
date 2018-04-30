@@ -28,9 +28,11 @@ class Red extends Component {
   render() {
     return (
       <AppProvider>
-        <div className="red">
-          <AppContext.Consumer>{context => context.number}</AppContext.Consumer>
-          <Blue />
+        <div className="App__container">
+          <div className="red">
+            <AppContext.Consumer>{context => context.number}</AppContext.Consumer>
+            <Blue />
+          </div>
         </div>
       </AppProvider>
     );
