@@ -1,79 +1,40 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { Nav, NavItem, Navbar } from "react-bootstrap";
-import Routes from "./Routes";
-import { authUser, signOutUser } from "./libs/awsLib";
-import RouteNavItem from "./components/RouteNavItem";
-import "./App.css";
+import React, { Component } from 'react';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
+const AppContext = React.createContext();
 
-    this.state = {
-      isAuthenticated: false,
-      isAuthenticating: true
-    };
-  }
-
-  async componentDidMount() {
-    try {
-      if (await authUser()) {
-        this.userHasAuthenticated(true);
-      }
-    }
-    catch(e) {
-      alert(e);
-    }
-
-    this.setState({ isAuthenticating: false });
-  }
-
-  userHasAuthenticated = authenticated => {
-    this.setState({ isAuthenticated: authenticated });
-  }
-
-  handleLogout = event => {
-    signOutUser();
-  
-    this.userHasAuthenticated(false);
-  }
+class AppProvider extends Component {
+  state = {
+    number: 10,
+  };
 
   render() {
-    const childProps = {
-      isAuthenticated: this.state.isAuthenticated,
-      userHasAuthenticated: this.userHasAuthenticated
-    };
+    return <AppContext.Provider value={this.state}>{this.props.children}</AppContext.Provider>;
+  }
+}
 
+const Green = () => (
+  <div className="green">
+    <AppContext.Consumer>{context => context.number}</AppContext.Consumer>
+  </div>
+);
+
+const Blue = () => (
+  <div className="blue">
+    <Green />
+  </div>
+);
+
+class Red extends Component {
+  render() {
     return (
-      !this.state.isAuthenticating &&
-      <div className="App container">
-        <Navbar fluid collapseOnSelect>
-          <Navbar.Header>
-            <Navbar.Brand>
-              <Link to="/">Scratch</Link>
-            </Navbar.Brand>
-            <Navbar.Toggle />
-          </Navbar.Header>
-          <Navbar.Collapse>
-            <Nav pullRight>
-              {this.state.isAuthenticated
-                ? <NavItem onClick={this.handleLogout}>Logout</NavItem>
-                : [
-                    <RouteNavItem key={1} href="/signup">
-                      Signup
-                    </RouteNavItem>,
-                    <RouteNavItem key={2} href="/login">
-                      Login
-                    </RouteNavItem>
-                  ]}
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
-        <Routes childProps={childProps} />
-      </div>
+      <AppProvider>
+        <div className="red">
+          <AppContext.Consumer>{context => context.number}</AppContext.Consumer>
+          <Blue />
+        </div>
+      </AppProvider>
     );
   }
 }
 
-export default App;
+export default Red;
