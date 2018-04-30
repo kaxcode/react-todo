@@ -8,7 +8,3 @@ it('renders without crashing', () => {
   ReactDOM.render(<App />, div);
 });
 
-it('renders a snapshot', () => {
-  const tree = renderer.create(<App/>).toJSON();
-  expect(tree).toMatchSnapshot();
-});
