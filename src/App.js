@@ -14,7 +14,8 @@ class AppProvider extends Component {
         value={{
           state: this.state,
           actions: {
-            increment: () => this.setState({ count: this.state.count + 1 })
+            increment: amount =>
+              this.setState({ count: this.state.count + amount })
           }
         }}
       >
@@ -33,7 +34,9 @@ const Green = () => (
 const Blue = () => (
   <div className="blue">
     <Consumer>
-      {({ actions }) => <button onClick={actions.increment}>+</button>}
+      {({ actions }) => (
+        <button onClick={actions.increment.bind(AppProvider, 10)}>+</button>
+      )}
     </Consumer>
     <Green />
   </div>
